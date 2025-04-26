@@ -83,6 +83,28 @@ perlP=`which perl`
     fi
   fi
 
+#============= Custom Doreen patch ==========
+#=========== this one is just for me ========
+doreenPath=~/dev/RL-Inject/rogue-like_doreen_mouth_edits.zip
+doreenDst=./images/DoreenSprite/
+doreenMthSprite=./Doreen_Sprite_Mouth_*.png
+
+  if [[ -f $doreenPath ]]
+  then
+    #if backups don't exist, make them
+    if [[ `find ${doreenDst} -name "*.orig"|wc -l` -le 0 ]]
+    then
+    echo -e "${BCyan}Backing up Doreen mouth sprites.$NC"
+      for fn in `ls $doreenDst$doreenMthSprite`
+      do
+      cp $fn ${fn}.orig
+      done
+    else
+    echo -e "${BCyan}Backups for Doreen mouth pngs exist. No need to back up.$NC"
+    fi
+  unzip -j $doreenPath "rogue-like_doreen_mouth_edits/*.png" -d $doreenDst
+  fi
+
 
 #============= options.rpy =========
 fn='./options.rpy'
@@ -111,15 +133,12 @@ perl -i -pe 's/text "Inventory:" size 20/'"$tmpTtl"'/' $fn
 perl -i -pe 's/hover "images\/Clockface.png" action NullAction\(\)/hover "images\/Clockface.png" action SetVariable("Round", 100)/' $fn
 
 
-  for n in Partner Ch_Focus
-  do
-  perl -i -pe "s/value $n.Lust/value FieldValue($n, \"Lust\", 100)/" $fn
-  perl -i -pe "s/value \($n.Love\/10\)/value FieldValue($n, \"Love\", 1000)/" $fn
-  perl -i -pe "s/value \($n.Obed\/10\)/value FieldValue($n, \"Obed\", 1000)/" $fn
-  perl -i -pe "s/value \($n.Inbt\/10\)/value FieldValue($n, \"Inbt\", 1000)/" $fn
-  perl -i -pe "s/value $n.Addict/value FieldValue($n, \"Addict\", 1000)/" $fn
-  perl -i -pe "s/value \($n.Addictionrate\*10\)/value FieldValue($n, \"Addictionrate\", 10)/" $fn
-  done
+  perl -i -pe "s/value UI_Focus.Lust/value FieldValue(UI_Focus, \"Lust\", 100)/" $fn
+  perl -i -pe "s/value \(UI_Focus.Love\/10\)/value FieldValue(UI_Focus, \"Love\", 1000)/" $fn
+  perl -i -pe "s/value \(UI_Focus.Obed\/10\)/value FieldValue(UI_Focus, \"Obed\", 1000)/" $fn
+  perl -i -pe "s/value \(UI_Focus.Inbt\/10\)/value FieldValue(UI_Focus, \"Inbt\", 1000)/" $fn
+  perl -i -pe "s/value UI_Focus.Addict/value FieldValue(UI_Focus, \"Addict\", 1000)/" $fn
+  perl -i -pe "s/value \(UI_Focus.Addictionrate\*10\)/value FieldValue(UI_Focus, \"Addictionrate\", 10)/" $fn
 
 
 perl -i -pe "s/value Player.Focus/value FieldValue(Player, \"Focus\", 100)/" $fn
