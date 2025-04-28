@@ -63,7 +63,7 @@ def screens():
         .replace(clockBase, clockNew)
     )
 
-    objects = ["Partner", "Ch_Focus"]
+    objects = ["Partner", "UI_Focus"]
 
     for i in objects:
         lustBase = "value %s.Lust" % i
