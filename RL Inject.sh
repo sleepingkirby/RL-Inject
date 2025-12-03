@@ -122,7 +122,7 @@ cp $fn $fn.orig
 perl -i -pe 's/Quit\(confirm=False\)/Quit(confirm=False)\n\n    frame:\n        xalign .5\n        text("Cheats enabled!")/' $fn
 
 tmpTtl='text "Inventory:" size 20\n        textbutton "+ \$1000" text_size 15 action SetField(Player, "Cash", Player.Cash + 1000)'
-  for n in Player RogueX KittyX EmmaX LauraX JeanX StormX JubesX GwenX BetsyX DoreenX WandaX
+  for n in Player RogueX KittyX EmmaX LauraX JeanX StormX JubesX GwenX BetsyX DoreenX WandaX YanaX
   do
   tmp="\n        if $n.Lvl < 10:\n            textbutton \"$n Max Level\" text_size 15 action [ SetField($n, \"Lvl\", 10), SetField($n, \"XP\", 3330), SetField($n, \"StatPoints\", 10) ]"
   tmpTtl=$tmpTtl$tmp
