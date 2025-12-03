@@ -35,6 +35,7 @@ def screens():
         "BetsyX",
         "DoreenX",
         "WandaX",
+        "YanaX"
     ]
 
     for i in names:
